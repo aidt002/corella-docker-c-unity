@@ -31,7 +31,7 @@ add_compile_options(
 
 # Configure main library
 file(GLOB_RECURSE APP_SOURCES
-  ${CMAKE_SOURCE_DIR}/src/main/c/*.c
+  ${CMAKE_SOURCE_DIR}/src/*.c
 )
 # Exclude the application entry point
 list(FILTER APP_SOURCES EXCLUDE REGEX ".*/main\\.c$")
@@ -40,7 +40,7 @@ add_library(c_lib STATIC ${APP_SOURCES})
 target_compile_features(c_lib PUBLIC c_std_11)
 target_include_directories(c_lib
   PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src/main/c>
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>
 )
 
@@ -53,7 +53,7 @@ endif()
 
 # Application executable
 add_executable(c_app
-  ${CMAKE_SOURCE_DIR}/src/main/c/main.c
+  ${CMAKE_SOURCE_DIR}/src/main.c
 )
 target_link_libraries(c_app PRIVATE c_lib)
 
@@ -62,23 +62,23 @@ enable_testing()
 
 # Unity framework
 add_library(Unity STATIC
-${CMAKE_SOURCE_DIR}/src/test/c/unity/unity.c
+${CMAKE_SOURCE_DIR}/tests/unity/unity.c
 )
 target_include_directories(Unity PUBLIC
-${CMAKE_SOURCE_DIR}/src/test/c/unity
+${CMAKE_SOURCE_DIR}/tests/unity
 )
 
 # Discover test files (exclude unity.c)
 file(GLOB_RECURSE TEST_SOURCES
-${CMAKE_SOURCE_DIR}/src/test/c/*.c
+${CMAKE_SOURCE_DIR}/tests/*.c
 )
 list(FILTER TEST_SOURCES EXCLUDE REGEX ".*/unity\\.c$")
 
 add_executable(c_tests ${TEST_SOURCES})
 target_link_libraries(c_tests PRIVATE c_lib Unity)
 target_include_directories(c_tests PRIVATE
-${CMAKE_SOURCE_DIR}/src/main/c
-${CMAKE_SOURCE_DIR}/src/test/c/unity
+${CMAKE_SOURCE_DIR}/src/
+${CMAKE_SOURCE_DIR}/tests/unity
 )
 
 add_test(NAME c_unit_tests COMMAND c_tests)

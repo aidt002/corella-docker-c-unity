@@ -8,20 +8,19 @@ A dockerized C template for running unit tests with CMake and Unity testing fram
 
 ```
 ├── src/
-│   ├── main/c/
-│   │   ├── example_math.c           # Example file to test
-│   │   └── main.c                   # Main application entry point
-│   └── test/c/
-│       ├── unity/
-│       │   ├── unity.h              # Unity testing framework header
-│       │   └── unity.c              # Unity testing framework implementation
-│       ├── test_example_math.c              # Unit tests for example file
-│       └── test_main.c              # Test runner main
-├── CMakeLists.txt                   # CMake project configuration
-├── Dockerfile                       # Docker configuration
-├── build_docker.sh                  # Docker build script
-├── run_tests.sh                     # Test execution script
-└── README.md                        # This file
+│   ├── example.c       # Example file to test
+│   └── main.c          # Main application entry point
+├── tests/
+│   ├── unity/
+│   │   ├── unity.h     # Unity testing framework header
+│   │   └── unity.c     # Unity testing framework implementation
+│   ├── test_example.c  # Unit tests for example file
+│   └── test_main.c     # Test runner main
+├── CMakeLists.txt      # CMake project configuration
+├── Dockerfile          # Docker configuration
+├── build_docker.sh     # Docker build script
+├── run_tests.sh        # Test execution script
+└── README.md           # This file
 ```
 
 ## Features
@@ -39,14 +38,14 @@ A dockerized C template for running unit tests with CMake and Unity testing fram
    
    Examples:
    ```bash
-   ./build_docker.sh                           # Uses default: c-unit-tests-base
-   ./build_docker.sh my-c-app                  # Custom image name
+   ./build_docker.sh              # Uses default: c-unit-tests-base
+   ./build_docker.sh my-c-app     # Custom image name
    ```
 
 2. **Run tests in Docker**:
    ```bash
    ./build_docker.sh my-c-app
-   docker run --rm my-c-app ./run_tests.sh
+   docker run --rm -it my-c-app ./run_tests.sh
    ```
 
 3. **Interactive Docker session**:
@@ -75,8 +74,8 @@ This template provides the essential structure and configuration files for a C p
 ### Required Template Structure
 
 Keep these key files and structure for your project:
-- **`src/main/c/`** - Your main application code (replace `src/main/c/` with your own structure)
-- **`src/test/c/`** - Your unit tests and Unity framework
+- **`src/`** - Your main application code (replace `src/` with your own structure)
+- **`tests/`** - Your unit tests and Unity framework
 - **`CMakeLists.txt`** - CMake configuration (update for your project details)
 - **`Dockerfile`** - Docker configuration for containerized testing. LEAVE AS IS.
 - **`build_docker.sh`** - Docker build script. LEAVE AS IS
@@ -101,7 +100,7 @@ This template includes a lightweight Unity testing framework with these assertio
    - Update the CMakeLists.txt to reflect your executable name
 
 2. **Replace the example tests**:
-   - Replace files in `src/test/c/` with your own test files
+   - Replace files in `tests/` with your own test files
    - Follow the same naming convention (test_filename.c)
 
 3. **Update CMake configuration**:

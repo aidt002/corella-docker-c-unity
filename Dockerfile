@@ -17,6 +17,7 @@ COPY CMakeLists.txt .
 
 # Copy source code after dependencies are downloaded
 COPY src ./src
+COPY tests ./tests
 
 COPY run_tests.sh ./
 
