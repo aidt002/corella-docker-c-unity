@@ -14,11 +14,12 @@ WORKDIR /app
 
 COPY CMakeLists.txt .
 
-
 # Copy source code after dependencies are downloaded
 COPY src ./src
 COPY tests ./tests
 
+# Copy build and test scripts
+COPY build_code.sh ./
 COPY run_tests.sh ./
 
 CMD ["sh"] 
